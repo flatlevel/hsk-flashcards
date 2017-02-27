@@ -78,11 +78,13 @@ export default {
       this.meaningText.addEventListener('mouseover', (ev) => {
         let meaningSpeaker = document.querySelector('#meaningHover .speaker');
         meaningSpeaker.style['opacity'] = 1.0;
+        this.meaningText.style['cursor'] = 'pointer';
       });
 
       this.meaningText.addEventListener('mouseout', (ev) => {
         let meaningSpeaker = document.querySelector('#meaningHover .speaker');
         meaningSpeaker.style['opacity'] = 0.0;
+        this.meaningText.style['cursor'] = 'auto';
       });
 
       this.meaningText.addEventListener('click', (ev) => {
@@ -99,11 +101,13 @@ export default {
       this.pinyinText.addEventListener('mouseover', (ev) => {
         let pinyinSpeaker = document.querySelector('#pinyinHover .speaker');
         pinyinSpeaker.style['opacity'] = 1.0;
+        this.pinyinText.style['cursor'] = 'pointer';
       });
 
       this.pinyinText.addEventListener('mouseout', (ev) => {
         let pinyinSpeaker = document.querySelector('#pinyinHover .speaker');
         pinyinSpeaker.style['opacity'] = 0.0;
+        this.pinyinText.style['cursor'] = 'auto';
       });
 
       this.pinyinText.addEventListener('click', (ev) => {
@@ -112,6 +116,7 @@ export default {
         let msg = new SpeechSynthesisUtterance(this.hskData.hanSimp);
         msg.lang = 'zh-CN';
         msg.voice = this.zhVoice;
+        msg.rate = 0.8;
         window.speechSynthesis.speak(msg);
       });
     }
