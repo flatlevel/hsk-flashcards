@@ -5,8 +5,7 @@ const
   KoaRouter = require('koa-router'),
   BodyParser = require('koa-bodyparser'),
   app = new Koa(),
-  router = KoaRouter(),
-  port = 8080
+  router = KoaRouter()
   ;
 
 // HSK handling
@@ -53,7 +52,8 @@ app
 app.on('error', err => log.error('Server error', err));
 
 hsk.parseLevel(1).then(() => {
-  app.listen(port, () => {
+  const server = app.listen(process.env.PORT || 8080, () => {
+    const port = server.address().port;
     console.log(`Listening on ${port}`);
   });
 });

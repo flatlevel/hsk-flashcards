@@ -24,6 +24,15 @@
       <p id="meaningHover"><em>{{hskData.meaning}}</em> <span class="speaker"></span></p>
     </div>
     <h3 v-if="!loaded">{{msg}}</h3>
+
+    <footer>
+      Problems? This app uses
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance" target="_blank">experimental</a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">APIs</a>.
+      Works best with <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome 56</a> or above.
+      <br><br>
+      <cite><small>Made by <a href="https://github.com/flatlevel" target="_blank">flatlevel</a></small></cite>
+    </footer>
   </div>
 </template>
 
@@ -164,6 +173,11 @@ export default {
   height: .8em;
   padding-left: 5px;
   transition: opacity 300ms ease-in;
+}
+
+#hskword {
+  display: block;
+  margin: 0px 0px 0px 25px;
 }
 
 h1, h2 {
