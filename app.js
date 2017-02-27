@@ -2,11 +2,16 @@
 
 const
   Koa = require('koa'),
+  KoaRouter = require('koa-router'),
+  BodyParser = require('koa-bodyparser'),
   app = new Koa(),
+  router = KoaRouter(),
   port = 8080
   ;
 
-app.use(require('koa-static-server')({ rootDir: 'public' }));
+// HSK handling
+const HSKChunk = require('./lib/hskparser.js');
+let hsk = new HSKChunk();
 
 // x-response-time
 app.use(async function (ctx, next) {
@@ -21,24 +26,26 @@ app.use(async function (ctx, next) {
   const start = new Date();
   await next();
   const ms = new Date() - start;
-  console.log(`[${new Date()}] ${ctx.method} | ${ms.toFixed(3)}ms | ${ctx.url}`);
+  console.log(`[${new Date()}] ${ctx.method} | ${ms}ms | ${ctx.url}`);
 });
+
+app.use(require('koa-static-server')({ rootDir: 'public' }));
+app.use(BodyParser());
+
+router.get('/word', function *() {
+  this.body = hsk.getRandomWord();
+});
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
+;
 
 // Handle server errors
 app.on('error', err => log.error('Server error', err));
 
-// response
-// app.use(ctx => {
-//   ctx.body = 'Hello World';
-// });
-
-app.listen(port, () => {
-  console.log(`Listening on ${port}`);
-
-  const HSKChunk = require('./lib/hskparser.js');
-  let hsk = new HSKChunk();
-  hsk
-    .parseLevel(1)
-    .then(() => console.log(hsk.getRandomWord()));
-
+hsk.parseLevel(1).then(() => {
+  app.listen(port, () => {
+    console.log(`Listening on ${port}`);
+  });
 });

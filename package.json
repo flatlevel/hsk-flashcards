@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "koa": "^2.0.1",
+    "koa-bodyparser": "^2.3.0",
+    "koa-router": "^5.4.0",
     "koa-static-server": "^1.0.0",
     "vue": "^2.2.1"
   },

@@ -2,20 +2,19 @@
   <div id="app">
     <img src="./assets/logo.png">
     <h1></h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <h2>Chinese Flash Cards</h2>
+    <button v-on:click="getRandomWord">Get New Word</button>
+    <div id="hskword" v-if="loaded">
+      <h1>{{hskData.hanSimp}} <small>({{hskData.hanTrad}})</small></h1>
+      <ul>
+      <li v-for="p in primitives">
+        <p>{{p.hanSimp}} <small>({{p.hanTrad}})</small> <em>{{p.pinyin}}</em> - tone {{p.tone}}</p>
+      </li>
+      </ul>
+      <h2><em>{{hskData.pinyin}}</em></h2>
+      <p><em>{{hskData.meaning}}</em></p>
+    </div>
+    <h3 v-if="!loaded">{{msg}}</h3>
   </div>
 </template>
 
@@ -24,7 +23,26 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Click the button to fetch a random character.',
+      hskData: {},
+      primitives: [],
+      loaded: false
+    }
+  },
+  methods: {
+    getRandomWord: function () {
+      fetch(new Request('/word')).then(res => {
+        res.json().then(json => {
+          console.log(json);
+          if (json) {
+            this.hskData = json;
+            this.primitives = json.primitives;
+            this.loaded = true;
+          } else {
+            this.loaded = false;
+          }
+        });
+      });
     }
   }
 }
@@ -42,6 +60,10 @@ export default {
 
 h1, h2 {
   font-weight: normal;
+}
+
+h1 small {
+  font-size: .7em;
 }
 
 ul {
