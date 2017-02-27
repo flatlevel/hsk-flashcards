@@ -20,8 +20,8 @@
         <p>{{p.hanSimp}} <small>({{p.hanTrad}})</small> <em>{{p.pinyin}}</em> - tone {{p.tone}}</p>
       </li>
       </ul>
-      <h2><em><span class="bigChar">{{hskData.pinyin}}</span></em></h2>
-      <p><em>{{hskData.meaning}}</em></p>
+      <h2 id="pinyinHover"><em><span class="bigChar">{{hskData.pinyin}}</span></em> <span class="speaker"></span></h2>
+      <p id="meaningHover"><em>{{hskData.meaning}}</em> <span class="speaker"></span></p>
     </div>
     <h3 v-if="!loaded">{{msg}}</h3>
   </div>
@@ -36,8 +36,22 @@ export default {
       hskData: {},
       primitives: [],
       loaded: false,
-      selectedLevel: 1
+      selectedLevel: 1,
+      meaningText: null,
+      pinyinText: null,
+      zhVoice: null,
     }
+  },
+  created () {
+    window.speechSynthesis.onvoiceschanged = () => {
+      let voices = window.speechSynthesis.getVoices();
+      for (let i = 0; i < voices.length; ++i) {
+        if (voices[i].name === 'zh-CN') {
+          this.zhVoice = voices[i];
+          console.log('loaded CN');
+        }
+      }
+    };
   },
   watch: {
     selectedLevel: function (newLevel) {
@@ -57,17 +71,60 @@ export default {
       });
     }
   },
+  updated () {
+    if (this.loaded && !this.meaningText) {
+      // add event Listener
+      this.meaningText = document.querySelector('#meaningHover');
+      this.meaningText.addEventListener('mouseover', (ev) => {
+        let meaningSpeaker = document.querySelector('#meaningHover .speaker');
+        meaningSpeaker.style['opacity'] = 1.0;
+      });
+
+      this.meaningText.addEventListener('mouseout', (ev) => {
+        let meaningSpeaker = document.querySelector('#meaningHover .speaker');
+        meaningSpeaker.style['opacity'] = 0.0;
+      });
+
+      this.meaningText.addEventListener('click', (ev) => {
+        ev.preventDefault();
+
+        let msg = new SpeechSynthesisUtterance(this.hskData.meaning);
+        window.speechSynthesis.speak(msg);
+      });
+    }
+
+    if (this.loaded && !this.pinyinText) {
+      // add event Listener
+      this.pinyinText = document.querySelector('#pinyinHover');
+      this.pinyinText.addEventListener('mouseover', (ev) => {
+        let pinyinSpeaker = document.querySelector('#pinyinHover .speaker');
+        pinyinSpeaker.style['opacity'] = 1.0;
+      });
+
+      this.pinyinText.addEventListener('mouseout', (ev) => {
+        let pinyinSpeaker = document.querySelector('#pinyinHover .speaker');
+        pinyinSpeaker.style['opacity'] = 0.0;
+      });
+
+      this.pinyinText.addEventListener('click', (ev) => {
+        ev.preventDefault();
+
+        let msg = new SpeechSynthesisUtterance(this.hskData.hanSimp);
+        msg.lang = 'zh-CN';
+        msg.voice = this.zhVoice;
+        window.speechSynthesis.speak(msg);
+      });
+    }
+  },
   methods: {
-    getRandomWord: function () {
+    getRandomWord: function() {
       fetch(new Request('/word')).then(res => {
         res.json().then(json => {
-          console.log(json);
+          // console.log(json);
           if (json) {
             this.hskData = json;
             this.primitives = json.primitives;
             this.loaded = true;
-          } else {
-            this.loaded = false;
           }
         });
       });
@@ -93,6 +150,15 @@ export default {
 
 .bigChar {
   font-size: 3em;
+}
+
+.speaker {
+  opacity: 0.0;
+  content: url('assets/speaker.svg');
+  width: .8em;
+  height: .8em;
+  padding-left: 5px;
+  transition: opacity 300ms ease-in;
 }
 
 h1, h2 {
