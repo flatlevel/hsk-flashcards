@@ -29,14 +29,22 @@ app.use(async function (ctx, next) {
   console.log(`[${new Date()}] ${ctx.method} | ${ms}ms | ${ctx.url}`);
 });
 
-app.use(require('koa-static-server')({ rootDir: 'public' }));
-app.use(BodyParser());
-
-router.get('/word', function *() {
-  this.body = hsk.getRandomWord();
-});
+router
+  .get('/word', function *() {
+    this.body = hsk.getRandomWord();
+  })
+  .post('/level', function *() {
+    let level = this.request.body.level || NaN;
+    if (!isNaN(level)) {
+      yield hsk.parseLevel(level);
+      this.body = {"status": "OK"};
+    }
+  })
+;
 
 app
+  .use(require('koa-static-server')({ rootDir: 'public' }))
+  .use(BodyParser())
   .use(router.routes())
   .use(router.allowedMethods())
 ;
