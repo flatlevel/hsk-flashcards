@@ -12,7 +12,7 @@
       Level 5 <input type="radio" name="level" value="5" v-model.number="selectedLevel">
       Level 6 <input type="radio" name="level" value="6" v-model.number="selectedLevel">
     </form>
-    <button v-on:click="getRandomWord">Get New Word</button>
+    <button v-on:click="getRandomWord">Get Random Word or Phrase</button>
     <div id="hskword" v-if="loaded">
       <h1><span class="bigChar">{{hskData.hanSimp}}</span> <small>({{hskData.hanTrad}})</small></h1>
       <ul>
@@ -20,7 +20,7 @@
         <p>{{p.hanSimp}} <small>({{p.hanTrad}})</small> <em>{{p.pinyin}}</em> <br>
           <span v-if="p.tone==1">High (1st) tone</span>
           <span v-if="p.tone==2">Rising (2nd) tone</span>
-          <span v-if="p.tone==3">Rise/Fall (3rd) tone</span>
+          <span v-if="p.tone==3">Dipping (3rd) tone</span>
           <span v-if="p.tone==4">Fall (4th) tone</span>
           <span v-if="p.tone==5">Neutral (5th) tone</span>
         </p>
