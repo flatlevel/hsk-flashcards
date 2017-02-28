@@ -17,7 +17,13 @@
       <h1><span class="bigChar">{{hskData.hanSimp}}</span> <small>({{hskData.hanTrad}})</small></h1>
       <ul>
       <li v-for="p in primitives">
-        <p>{{p.hanSimp}} <small>({{p.hanTrad}})</small> <em>{{p.pinyin}}</em> - tone {{p.tone}}</p>
+        <p>{{p.hanSimp}} <small>({{p.hanTrad}})</small> <em>{{p.pinyin}}</em> <br>
+          <span v-if="p.tone==1">High (1st) tone</span>
+          <span v-if="p.tone==2">Rising (2nd) tone</span>
+          <span v-if="p.tone==3">Rise/Fall (3rd) tone</span>
+          <span v-if="p.tone==4">Fall (4th) tone</span>
+          <span v-if="p.tone==5">Neutral (5th) tone</span>
+        </p>
       </li>
       </ul>
       <h2 id="pinyinHover"><em><span class="bigChar">{{hskData.pinyin}}</span></em> <span class="speaker"></span></h2>
@@ -122,7 +128,8 @@ export default {
       this.pinyinText.addEventListener('click', (ev) => {
         ev.preventDefault();
 
-        let msg = new SpeechSynthesisUtterance(this.hskData.hanSimp);
+        // Add period to indicate to speech synth definite ending.
+        let msg = new SpeechSynthesisUtterance(this.hskData.hanSimp+'.');
         msg.lang = 'zh-CN';
         msg.voice = this.zhVoice;
         msg.rate = 0.8;
@@ -164,6 +171,7 @@ export default {
 
 .bigChar {
   font-size: 3em;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .speaker {
