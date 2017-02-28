@@ -83,7 +83,7 @@
 狗	狗	gou3	gǒu	dog
 岁	歲	sui4	suì	years old; age
 看见	看見	kan4jian4	kànjiàn	see; catch sight of
-打电话	打電話	da3 dian4hua4	dǎ diànhuà	make a phone call
+打电话	打電話	da3dian4hua4	dǎdiànhuà	make a phone call
 喂	喂	wei4	wèi	hello (on the phone)
 儿子	兒子	er2zi5	érzi	son
 漂亮	漂亮	piao4liang5	piàoliang	pretty; beautiful
@@ -104,14 +104,14 @@
 四	四	si4	sì	four
 五	五	wu3	wǔ	five
 医院	醫院	yi1yuan4	yīyuàn	hospital
-没关系	沒關系	mei2 guan1xi5	méi guānxi	it doesn't matter; never mind
+没关系	沒關系	mei2guan1xi5	méiguānxi	it doesn't matter; never mind
 飞机	飛機	fei1ji1	fēijī	airplane
 二	二	er4	èr	two
 电视	電視	dian4shi4	diànshì	television; TV
 读	讀	du2	dú	to read; to study
 后面	后面	hou4mian5	hòumian	back; behind
 昨天	昨天	zuo2tian1	zuótiān	yesterday
-睡觉	睡覺	shui4 jiao4	shuì jiào	to sleep; go to bed
+睡觉	睡覺	shui4jiao4	shuìjiào	to sleep; go to bed
 六	六	liu4	liù	six
 老师	老師	lao3shi1	lǎoshī	teacher
 星期	星期	xing1qi1	xīngqī	week
@@ -123,7 +123,7 @@
 下午	下午	xia4wu3	xiàwǔ	afternoon
 学习	學習	xue2xi2	xuéxí	learn; to study
 冷	冷	leng3	lěng	cold
-不客气	不客氣	bu2 ke4qi5	bú kèqi	you're welcome; don't be polite
+不客气	不客氣	bu2ke4qi5	búkèqi	you're welcome; don't be polite
 前面	前面	qian2mian4	qiánmiàn	in front
 八	八	ba1	bā	eight
 中国	中國	Zhong1guo2	Zhōngguó	China
