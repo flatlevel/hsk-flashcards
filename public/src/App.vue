@@ -68,24 +68,24 @@ export default {
       }
     };
   },
-  watch: {
-    selectedLevel: function (newLevel) {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      let postReq = new Request('/level', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({level: +newLevel})
-      });
-
-      fetch(postReq).then(res => {
-        res.json().then(json => {
-          console.log(json);
-        });
-      });
-    }
-  },
+  // watch: {
+  //   selectedLevel: function (newLevel) {
+  //     let headers = new Headers();
+  //     headers.append('Content-Type', 'application/json');
+  //
+  //     let postReq = new Request('/level', {
+  //       method: 'POST',
+  //       headers: headers,
+  //       body: JSON.stringify({level: +newLevel})
+  //     });
+  //
+  //     fetch(postReq).then(res => {
+  //       res.json().then(json => {
+  //         console.log(json);
+  //       });
+  //     });
+  //   }
+  // },
   updated () {
     if (this.loaded && !this.meaningText) {
       // add event Listener
@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     getRandomWord: function() {
-      fetch(new Request('/word')).then(res => {
+      fetch(new Request('word/' + this.selectedLevel)).then(res => {
         res.json().then(json => {
           // console.log(json);
           if (json) {
