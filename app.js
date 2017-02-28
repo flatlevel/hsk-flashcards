@@ -32,6 +32,9 @@ router
   .get('/word', function *() {
     this.body = hsk.getRandomWord();
   })
+  .get('/word/:index', function *() {
+    this.body = hsk.getWordByFreq(this.params.index);
+  })
   .post('/level', function *() {
     let level = this.request.body.level || NaN;
     if (!isNaN(level)) {
