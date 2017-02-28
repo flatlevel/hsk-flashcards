@@ -21,7 +21,7 @@
           <span v-if="p.tone==1">High (1st) tone</span>
           <span v-if="p.tone==2">Rising (2nd) tone</span>
           <span v-if="p.tone==3">Dipping (3rd) tone</span>
-          <span v-if="p.tone==4">Fall (4th) tone</span>
+          <span v-if="p.tone==4">Falling (4th) tone</span>
           <span v-if="p.tone==5">Neutral (5th) tone</span>
         </p>
       </li>
